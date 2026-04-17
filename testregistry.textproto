@@ -2568,9 +2568,3 @@ test: {
   readme: "https://github.com/openconfig/featureprofiles/blob/main/feature/system/system_base_test/tests/system_software_version/README.md"
   exec: " "
 }
-test: {
-  id: "HA-1.0"
-  description: "Telemetry: Firewall High Availability"
-  readme: "https://github.com/openconfig/featureprofiles/blob/main/feature/ha_groups/tests/telemetry_high_availability_test/README.md"
-  exec: " "
-}
