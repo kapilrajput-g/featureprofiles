@@ -25,12 +25,11 @@ The `pcrs` field stores the expected hardware-specific integrity values for a gi
 ### 3. Image Release Type
 The `image_type` field defines the release stage of the network operating system image, allowing automated ingestion pipelines to categorize builds correctly.
 
-*   **Field**: `ImageType image_type = 10;`
-*   **Supported Values**:
-    *   `IMAGETYPE_GENERAL_AVAILABILITY`: Standard GA release.
-    *   `IMAGETYPE_ENGINEERING`: Intermediate or engineering build.
-    *   `IMAGETYPE_BETA`: Beta release.
-    *   `IMAGETYPE_CUSTOMER_SPECIAL`: Customer-specific build.
+* **Field**: `ImageType image_type = 10;`
+* **Supported Values**:
+  * `IMAGETYPE_GA`: General Availability release.
+  * `IMAGETYPE_EFT`: Early Field Trial release.
+
 
 ---
 
@@ -67,4 +66,4 @@ pcrs: {
 }
 
 # Enhancement: Categorized image release type
-image_type: IMAGETYPE_GENERAL_AVAILABILITY
+image_type: IMAGETYPE_GA
