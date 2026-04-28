@@ -27,6 +27,32 @@ import "github.com/openconfig/featureprofiles/proto/ocrpcs.proto";
 import "github.com/openconfig/ondatra/proto/testbed.proto";
 import "google/protobuf/timestamp.proto";
 
+// Represents a single Platform Configuration Register (PCR) and its expected
+// value(s).
+message PlatformConfigurationRegister {
+  // The PCR index number (e.g., 0, 4, 5, 7). The meaning of the index
+  // is vendor-specific.
+  int32 index = 1;
+
+  // The expected hash value(s) for this PCR index.
+  // This is often a SHA hash represented as a hexadecimal string.
+  // Using a repeated field allows for cases where multiple values are
+  // considered valid for a given index and software version.
+  repeated string values = 2;
+
+  // Optional: A human-readable name or description for this PCR index,
+  // which can provide vendor-specific context (e.g., "BIOS", "Aboot Image",
+  // "EOS Image").
+  string name = 3;
+}
+
+// Defines the release type of the network operating system image.
+enum ImageType {
+  IMAGETYPE_UNSPECIFIED = 0;  // Default value
+  IMAGETYPE_GA = 1;           // General Availability
+  IMAGETYPE_EFT = 2;          // Early Field Trial
+}
+
 // NOSImageProfile - A network operating system and version which provides
 // support for a list of OpenConfig paths and RPCs.
 message NOSImageProfile {
@@ -58,18 +84,26 @@ message NOSImageProfile {
   // OpenConfig RPCs supported by the network operating system.
   openconfig.ocrpcs.OCRPCs ocrpcs = 6;
 
-  // featureprofile_test_result contains a list of tests which 
+  // featureprofile_test_result contains a list of tests which
   // were executed on the NOS software was tested against
   repeated FeatureProfileTestResult featureprofile_test_result = 8;
 
+  // Expected Platform Configuration Register values for this NOS image.
+  // Vendors should populate this with the PCR indices and expected values
+  // for the given software_version and hardware_name.
+  repeated PlatformConfigurationRegister pcrs = 9;
+
+  // Specifies the type of the image release.
+  ImageType image_type = 10;
 }
 
 message FeatureProfileTestResult {
-  // The unique identifier for a featureprofiles test plan.  This string must match
-  // the Metadata plan_id defined for the referenced test.
+  // The unique identifier for a featureprofiles test plan.  This string must
+  // match the Metadata plan_id defined for the referenced test.
   string plan_id = 1;
-  
-  // The git commit hash for the featureprofiles repository containing the referenced test
+
+  // The git commit hash for the featureprofiles repository containing the
+  // referenced test
   string commit = 2;
 
   // result identifies if the test was executed and its outcome
