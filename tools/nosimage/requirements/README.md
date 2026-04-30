@@ -1,6 +1,6 @@
 # NOSImageProfile Enhancement Requirements
 
-The `NOSImageProfile` has been updated to transition from manual reporting to a structured, machine-readable format. This ensures that critical metadata regarding platform security, release lifecycles, and test validation can be automatically ingested and processed by internal systems and catalogs.
+The `NOSImageProfile` has been updated to transition from manual reporting to a structured, machine-readable format. This ensures that critical metadata regarding release lifecycles and test validation can be automatically ingested and processed by internal systems and catalogs.
 
 ## Enhancement Field Requirements
 
@@ -13,16 +13,7 @@ To enable automated coverage analysis and validation tracking, vendors must prov
     *   **commit**: The specific git commit hash of the `featureprofiles` repository used for the execution.
     *   **result**: The final status of the test (e.g., `PASSED`, `FAILED`, `NOT_EXECUTED`).
 
-### 2. Platform Configuration Registers (PCRs)
-The `pcrs` field stores the expected hardware-specific integrity values for a given NOS image. Providing this data in a structured format allows for automated verification of platform security states.
-
-*   **Field**: `repeated PlatformConfigurationRegister pcrs = 9;`
-*   **Attributes**:
-    *   **index**: The vendor-specific index number (e.g., 0, 7).
-    *   **values**: One or more valid hash values (typically SHA hexadecimal strings).
-    *   **name**: (Optional) A human-readable description for the register (e.g., "BIOS", "Secure Boot Policy").
-
-### 3. Image Release Type
+### 2. Image Release Type
 The `image_type` field defines the release stage of the network operating system image, allowing automated ingestion pipelines to categorize builds correctly.
 
 * **Field**: `ImageType image_type = 10;`
@@ -53,17 +44,7 @@ featureprofile_test_result: {
   result: FAILED
 }
 
-# Enhancement: Structured platform integrity data
-pcrs: {
-  index: 0
-  values: "abc123def456..."
-  name: "BIOS"
-}
-pcrs: {
-  index: 7
-  values: "789ghi012jkl..."
-  name: "Secure Boot Policy"
-}
+
 
 # Enhancement: Categorized image release type
 image_type: IMAGETYPE_GA

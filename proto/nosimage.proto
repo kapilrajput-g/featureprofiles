@@ -27,25 +27,6 @@ import "github.com/openconfig/featureprofiles/proto/ocrpcs.proto";
 import "github.com/openconfig/ondatra/proto/testbed.proto";
 import "google/protobuf/timestamp.proto";
 
-// Represents a single Platform Configuration Register (PCR) and its expected
-// value(s).
-message PlatformConfigurationRegister {
-  // The PCR index number (e.g., 0, 4, 5, 7). The meaning of the index
-  // is vendor-specific.
-  int32 index = 1;
-
-  // The expected hash value(s) for this PCR index.
-  // This is often a SHA hash represented as a hexadecimal string.
-  // Using a repeated field allows for cases where multiple values are
-  // considered valid for a given index and software version.
-  repeated string values = 2;
-
-  // Optional: A human-readable name or description for this PCR index,
-  // which can provide vendor-specific context (e.g., "BIOS", "Aboot Image",
-  // "EOS Image").
-  string name = 3;
-}
-
 // Defines the release type of the network operating system image.
 enum ImageType {
   IMAGETYPE_UNSPECIFIED = 0;  // Default value
@@ -88,13 +69,8 @@ message NOSImageProfile {
   // were executed on the NOS software was tested against
   repeated FeatureProfileTestResult featureprofile_test_result = 8;
 
-  // Expected Platform Configuration Register values for this NOS image.
-  // Vendors should populate this with the PCR indices and expected values
-  // for the given software_version and hardware_name.
-  repeated PlatformConfigurationRegister pcrs = 9;
-
   // Specifies the type of the image release.
-  ImageType image_type = 10;
+  ImageType image_type = 9;
 }
 
 message FeatureProfileTestResult {
